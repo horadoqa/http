@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hora do QA - Métodos HTTP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:1080px;
+    height:1920px;
+    overflow:hidden;
+    font-family:'Poppins',sans-serif;
+    background:#020617;
+}
+
+body{
+    position:relative;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            rgba(2,6,23,.85),
+            rgba(2,6,23,.90)
+        ),
+        url("background-tech.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    z-index:-2;
+}
+
+body::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(circle at top,
+        rgba(0,229,255,.15),
+        transparent 40%);
+
+    z-index:-1;
+}
+
+.container{
+    width:100%;
+    height:100%;
+    padding:80px;
+}
+
+.header{
+    text-align:center;
+    margin-top:80px;
+    margin-bottom:80px;
+}
+
+.header h1{
+    font-size:78px;
+    color:#00E5FF;
+    font-weight:800;
+    letter-spacing:2px;
+
+    animation:glow 2s infinite;
+}
+
+.header p{
+    margin-top:20px;
+    color:#e2e8f0;
+    font-size:34px;
+}
+
+@keyframes glow {
+
+    0%{
+        text-shadow:0 0 15px #00E5FF;
+    }
+
+    50%{
+        text-shadow:
+            0 0 30px #00E5FF,
+            0 0 60px #00E5FF,
+            0 0 100px #00E5FF;
+    }
+
+    100%{
+        text-shadow:0 0 15px #00E5FF;
+    }
+}
+
+.carousel{
+    width:100%;
+    height:1450px;
+    overflow:hidden;
+}
+
+.slides{
+    display:flex;
+    height:100%;
+    transition:transform .8s ease-in-out;
+}
+
+.slide{
+    min-width:100%;
+    height:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+
+    width:920px;
+    height:1200px;
+
+    padding:80px;
+
+    border-radius:40px;
+
+    background:rgba(15,23,42,.72);
+
+    backdrop-filter:blur(15px);
+
+    border:2px solid rgba(0,229,255,.25);
+
+    box-shadow:
+    0 0 40px rgba(0,229,255,.15),
+    0 0 120px rgba(108,99,255,.15);
+}
+
+.method{
+    font-size:130px;
+    font-weight:800;
+    color:#00E5FF;
+    margin-bottom:60px;
+}
+
+.description{
+    color:white;
+    font-size:48px;
+    line-height:1.7;
+    margin-bottom:70px;
+}
+
+.code{
+    background:#0f172a;
+
+    border-left:8px solid #00E5FF;
+
+    color:#38bdf8;
+
+    font-family:Consolas, monospace;
+
+    font-size:38px;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    margin-bottom:60px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.tag{
+    background:#6C63FF;
+    color:white;
+
+    font-size:30px;
+
+    padding:18px 28px;
+
+    border-radius:50px;
+}
+
+.progress{
+    width:100%;
+    height:12px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-top:30px;
+}
+
+.progress-bar{
+
+    height:100%;
+
+    width:0;
+
+    background:linear-gradient(
+    90deg,
+    #00E5FF,
+    #6C63FF
+    );
+
+    animation:progress 4s linear infinite;
+}
+
+@keyframes progress{
+
+    from{
+        width:0;
+    }
+
+    to{
+        width:100%;
+    }
+}
+
+.footer{
+    text-align:center;
+    color:#94a3b8;
+    font-size:26px;
+    margin-top:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Hora do QA</h1>
+        <h1>- Métodos HTTP - </h1>
+        <p>Conheça os principais métodos utilizados em APIs REST</p>
+    </div>
+
+    <div class="carousel">
+
+        <div class="slides">
+
+            <!-- GET -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">GET</div>
+
+                    <div class="description">
+                        Recupera informações de um recurso sem alterar dados no servidor.
+                    </div>
+
+                    <div class="code">
+                        GET /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Consulta</span>
+                        <span class="tag">Seguro</span>
+                        <span class="tag">Cacheável</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">POST</div>
+
+                    <div class="description">
+                        Cria novos recursos ou envia dados para processamento.
+                    </div>
+
+                    <div class="code">
+                        POST /usuarios
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Criação</span>
+                        <span class="tag">Envio de Dados</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUT -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">PUT</div>
+
+                    <div class="description">
+                        Atualiza completamente um recurso existente.
+                    </div>
+
+                    <div class="code">
+                        PUT /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Atualização Total</span>
+                        <span class="tag">Idempotente</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATCH -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">PATCH</div>
+
+                    <div class="description">
+                        Atualiza apenas os campos informados do recurso.
+                    </div>
+
+                    <div class="code">
+                        PATCH /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Atualização Parcial</span>
+                        <span class="tag">Eficiência</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DELETE -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">DELETE</div>
+
+                    <div class="description">
+                        Remove um recurso do sistema.
+                    </div>
+
+                    <div class="code">
+                        DELETE /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Exclusão</span>
+                        <span class="tag">Idempotente</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HEAD -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">HEAD</div>
+
+                    <div class="description">
+                        Retorna apenas os cabeçalhos da resposta.
+                    </div>
+
+                    <div class="code">
+                        HEAD /arquivo.pdf
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Metadados</span>
+                        <span class="tag">Validação</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPTIONS -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">OPTIONS</div>
+
+                    <div class="description">
+                        Informa quais métodos HTTP são suportados por um recurso.
+                    </div>
+
+                    <div class="code">
+                        OPTIONS /usuarios
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">CORS</span>
+                        <span class="tag">Descoberta</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRACE -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">TRACE</div>
+
+                    <div class="description">
+                        Diagnostica o caminho percorrido pela requisição.
+                    </div>
+
+                    <div class="code">
+                        TRACE /api
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Debug</span>
+                        <span class="tag">Rede</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONNECT -->
+            <div class="slide">
+                <div class="card">
+                    <div class="method">CONNECT</div>
+
+                    <div class="description">
+                        Cria um túnel de comunicação com o servidor, geralmente para HTTPS.
+                    </div>
+
+                    <div class="code">
+                        CONNECT api.exemplo.com:443
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">HTTPS</span>
+                        <span class="tag">Proxy</span>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        QA • APIs REST • Desenvolvimento Web
+    </div>
+
+</div>
+
+<script>
+
+const slides = document.querySelector(".slides");
+const totalSlides = document.querySelectorAll(".slide").length;
+
+let currentSlide = 0;
+
+function nextSlide(){
+
+    currentSlide++;
+
+    if(currentSlide >= totalSlides){
+        currentSlide = 0;
+    }
+
+    slides.style.transform =
+        `translateX(-${currentSlide * 100}%)`;
+}
+
+setInterval(nextSlide, 4000);
+
+</script>
+
+</body>
+</html>
