@@ -1,513 +1,675 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Hora do QA - Métodos HTTP</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html,
-body{
-    width:1080px;
-    height:1920px;
-    overflow:hidden;
-    font-family:'Poppins',sans-serif;
-    background:#020617;
-}
-
-body{
-    position:relative;
-}
-
-body::before{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            rgba(2,6,23,.85),
-            rgba(2,6,23,.90)
-        ),
-        url("background-tech.png");
-
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-
-    z-index:-2;
-}
-
-body::after{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:
-        radial-gradient(circle at top,
-        rgba(0,229,255,.15),
-        transparent 40%);
-
-    z-index:-1;
-}
-
-.container{
-    width:100%;
-    height:100%;
-    padding:80px;
-}
-
-.header{
-    text-align:center;
-    margin-top:80px;
-    margin-bottom:80px;
-}
-
-.header h1{
-    font-size:78px;
-    color:#00E5FF;
-    font-weight:800;
-    letter-spacing:2px;
-
-    animation:glow 2s infinite;
-}
 
-.header p{
-    margin-top:20px;
-    color:#e2e8f0;
-    font-size:34px;
-}
-
-@keyframes glow {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
 
-    0%{
-        text-shadow:0 0 15px #00E5FF;
-    }
+    <title>Hora do QA - HTTP</title>
 
-    50%{
-        text-shadow:
-            0 0 30px #00E5FF,
-            0 0 60px #00E5FF,
-            0 0 100px #00E5FF;
-    }
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
 
-    100%{
-        text-shadow:0 0 15px #00E5FF;
-    }
-}
 
-.carousel{
-    width:100%;
-    height:1450px;
-    overflow:hidden;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.slides{
-    display:flex;
-    height:100%;
-    transition:transform .8s ease-in-out;
-}
 
-.slide{
-    min-width:100%;
-    height:100%;
+        html,
+        body {
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+            width: 1080px;
+            height: 1920px;
+            overflow: hidden;
 
-.card{
+            background: #030712;
 
-    width:920px;
-    height:1200px;
+            color: white;
 
-    padding:80px;
+            font-family: 'Inter', sans-serif;
 
-    border-radius:40px;
+        }
 
-    background:rgba(15,23,42,.72);
 
-    backdrop-filter:blur(15px);
+        body {
 
-    border:2px solid rgba(0,229,255,.25);
+            position: relative;
 
-    box-shadow:
-    0 0 40px rgba(0,229,255,.15),
-    0 0 120px rgba(108,99,255,.15);
-}
+        }
 
-.method{
-    font-size:130px;
-    font-weight:800;
-    color:#00E5FF;
-    margin-bottom:60px;
-}
 
-.description{
-    color:white;
-    font-size:48px;
-    line-height:1.7;
-    margin-bottom:70px;
-}
+        body::before {
 
-.code{
-    background:#0f172a;
+            content: "";
 
-    border-left:8px solid #00E5FF;
+            position: absolute;
 
-    color:#38bdf8;
+            inset: 0;
 
-    font-family:Consolas, monospace;
+            background:
+                radial-gradient(circle at top, #00ffff33, transparent 35%),
+                radial-gradient(circle at bottom, #6366f133, transparent 40%);
 
-    font-size:38px;
+            z-index: -2;
 
-    padding:40px;
+        }
 
-    border-radius:20px;
 
-    margin-bottom:60px;
-}
+        .grid {
 
-.tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-}
+            position: absolute;
 
-.tag{
-    background:#6C63FF;
-    color:white;
+            inset: 0;
 
-    font-size:30px;
+            background-image:
+                linear-gradient(#ffffff08 1px, transparent 1px),
+                linear-gradient(90deg, #ffffff08 1px, transparent 1px);
 
-    padding:18px 28px;
+            background-size: 45px 45px;
 
-    border-radius:50px;
-}
+            z-index: -1;
 
-.progress{
-    width:100%;
-    height:12px;
+        }
 
-    background:rgba(255,255,255,.15);
 
-    border-radius:20px;
 
-    overflow:hidden;
+        .container {
 
-    margin-top:30px;
-}
+            height: 100%;
 
-.progress-bar{
+            padding: 70px;
 
-    height:100%;
+            margin-top: -50px;
 
-    width:0;
+        }
 
-    background:linear-gradient(
-    90deg,
-    #00E5FF,
-    #6C63FF
-    );
 
-    animation:progress 4s linear infinite;
-}
 
-@keyframes progress{
+        .header {
 
-    from{
-        width:0;
-    }
+            text-align: center;
 
-    to{
-        width:100%;
-    }
-}
+            margin-bottom: 55px;
 
-.footer{
-    text-align:center;
-    color:#94a3b8;
-    font-size:26px;
-    margin-top:30px;
-}
+        }
 
-</style>
+
+
+        .header h1 {
+
+            font-family: 'Orbitron';
+
+            font-size: 80px;
+
+            color: #00ffff;
+
+            text-shadow:
+                0 0 25px #00ffff;
+
+        }
+
+
+
+        .header p {
+
+            font-size: 35px;
+
+            margin-top: 20px;
+
+            color: #cbd5e1;
+
+        }
+
+
+
+        .area {
+
+            height: 1500px;
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+
+
+        .track {
+
+            transition: .8s ease;
+
+        }
+
+
+
+        .card {
+
+            height: 330px;
+
+            margin-bottom: 25px;
+
+            padding: 35px;
+
+            border-radius: 35px;
+
+
+            background:
+
+                linear-gradient(135deg,
+                    #111827dd,
+                    #1e293bdd);
+
+
+            border:
+
+                2px solid rgba(0, 255, 255, .15);
+
+
+            box-shadow:
+
+                0 0 35px #00ffff15;
+
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+
+        .method {
+
+            font-family: 'Orbitron';
+
+            font-size: 85px;
+
+            font-weight: 800;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .get {
+            color: #00ffaa;
+        }
+
+        .post {
+            color: #00d4ff;
+        }
+
+        .put {
+            color: #ffd000;
+        }
+
+        .patch {
+            color: #ff914d;
+        }
+
+        .delete {
+            color: #ff5277;
+        }
+
+        .head {
+            color: #a78bfa;
+        }
+
+        .options {
+            color: #2dd4bf;
+        }
+
+        .trace {
+            color: #f472b6;
+        }
+
+        .connect {
+            color: #60a5fa;
+        }
+
+
+
+        .description {
+
+            font-size: 32px;
+
+            text-align: center;
+
+            line-height: 1.4;
+
+            color: #f8fafc;
+
+            max-width: 850px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+
+        .endpoint {
+
+            background: #020617;
+
+            color: #38bdf8;
+
+            font-family: Consolas, monospace;
+
+            font-size: 28px;
+
+            padding: 12px 25px;
+
+            border-radius: 15px;
+
+        }
+
+
+
+        .tags {
+
+            display: flex;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        .tag {
+
+            background: #06b6d455;
+
+            border: 1px solid #22d3ee;
+
+            padding: 8px 20px;
+
+            border-radius: 40px;
+
+            font-size: 20px;
+
+        }
+
+
+
+        .counter {
+
+            position: absolute;
+
+            right: 0;
+
+            top: 0;
+
+            background: #030712;
+
+            color: #020617;
+
+            padding: 15px 25px;
+
+            border-radius: 40px;
+
+            font-weight: bold;
+
+        }
+
+
+
+        .footer {
+
+            margin-top: 35px;
+
+            text-align: center;
+
+            font-size: 26px;
+
+            color: #94a3b8;
+
+        }
+    </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <div class="header">
-        <h1>Hora do QA</h1>
-        <h1>- Métodos HTTP - </h1>
-        <p>Conheça os principais métodos utilizados em APIs REST</p>
-    </div>
+    <div class="grid"></div>
 
-    <div class="carousel">
 
-        <div class="slides">
+    <div class="container">
 
-            <!-- GET -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">GET</div>
 
-                    <div class="description">
-                        Recupera informações de um recurso sem alterar dados no servidor.
-                    </div>
+        <div class="header">
 
-                    <div class="code">
-                        GET /usuarios/123
-                    </div>
+            <h1>HORA DO QA</h1>
 
-                    <div class="tags">
-                        <span class="tag">Consulta</span>
-                        <span class="tag">Seguro</span>
-                        <span class="tag">Cacheável</span>
-                    </div>
+            <p>Métodos HTTP em APIs REST</p>
 
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- POST -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">POST</div>
-
-                    <div class="description">
-                        Cria novos recursos ou envia dados para processamento.
-                    </div>
-
-                    <div class="code">
-                        POST /usuarios
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">Criação</span>
-                        <span class="tag">Envio de Dados</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PUT -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">PUT</div>
-
-                    <div class="description">
-                        Atualiza completamente um recurso existente.
-                    </div>
-
-                    <div class="code">
-                        PUT /usuarios/123
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">Atualização Total</span>
-                        <span class="tag">Idempotente</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PATCH -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">PATCH</div>
-
-                    <div class="description">
-                        Atualiza apenas os campos informados do recurso.
-                    </div>
-
-                    <div class="code">
-                        PATCH /usuarios/123
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">Atualização Parcial</span>
-                        <span class="tag">Eficiência</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DELETE -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">DELETE</div>
-
-                    <div class="description">
-                        Remove um recurso do sistema.
-                    </div>
-
-                    <div class="code">
-                        DELETE /usuarios/123
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">Exclusão</span>
-                        <span class="tag">Idempotente</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- HEAD -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">HEAD</div>
-
-                    <div class="description">
-                        Retorna apenas os cabeçalhos da resposta.
-                    </div>
-
-                    <div class="code">
-                        HEAD /arquivo.pdf
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">Metadados</span>
-                        <span class="tag">Validação</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OPTIONS -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">OPTIONS</div>
-
-                    <div class="description">
-                        Informa quais métodos HTTP são suportados por um recurso.
-                    </div>
-
-                    <div class="code">
-                        OPTIONS /usuarios
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">CORS</span>
-                        <span class="tag">Descoberta</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TRACE -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">TRACE</div>
-
-                    <div class="description">
-                        Diagnostica o caminho percorrido pela requisição.
-                    </div>
-
-                    <div class="code">
-                        TRACE /api
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">Debug</span>
-                        <span class="tag">Rede</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CONNECT -->
-            <div class="slide">
-                <div class="card">
-                    <div class="method">CONNECT</div>
-
-                    <div class="description">
-                        Cria um túnel de comunicação com o servidor, geralmente para HTTPS.
-                    </div>
-
-                    <div class="code">
-                        CONNECT api.exemplo.com:443
-                    </div>
-
-                    <div class="tags">
-                        <span class="tag">HTTPS</span>
-                        <span class="tag">Proxy</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                </div>
+            <div class="counter" id="counter">
+                01 / 10
             </div>
 
         </div>
 
+
+
+        <div class="area">
+
+            <!-- <div class="counter" id="counter">
+                01 / 10
+            </div> -->
+
+
+
+            <div class="track" id="track">
+
+
+
+                <div class="card">
+
+                    <div class="method get">GET</div>
+
+                    <div class="description">
+                        Busca informações sem modificar dados existentes.
+                    </div>
+
+                    <div class="endpoint">
+                        GET /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Consulta</div>
+                        <div class="tag">Seguro</div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="card">
+
+                    <div class="method post">POST</div>
+
+                    <div class="description">
+                        Envia dados para criar um novo recurso.
+                    </div>
+
+                    <div class="endpoint">
+                        POST /usuarios
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Criação</div>
+                        <div class="tag">Payload</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method put">PUT</div>
+
+                    <div class="description">
+                        Substitui completamente um recurso existente.
+                    </div>
+
+                    <div class="endpoint">
+                        PUT /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Update</div>
+                        <div class="tag">Idempotente</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method patch">PATCH</div>
+
+                    <div class="description">
+                        Atualiza somente os campos enviados.
+                    </div>
+
+                    <div class="endpoint">
+                        PATCH /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Parcial</div>
+                        <div class="tag">Rápido</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method delete">DELETE</div>
+
+                    <div class="description">
+                        Remove um recurso da aplicação.
+                    </div>
+
+                    <div class="endpoint">
+                        DELETE /usuarios/123
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Remover</div>
+                        <div class="tag">Idempotente</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method head">HEAD</div>
+
+                    <div class="description">
+                        Retorna apenas informações do cabeçalho.
+                    </div>
+
+                    <div class="endpoint">
+                        HEAD /arquivo
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Headers</div>
+                        <div class="tag">Teste</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method options">OPTIONS</div>
+
+                    <div class="description">
+                        Mostra métodos permitidos pelo servidor.
+                    </div>
+
+                    <div class="endpoint">
+                        OPTIONS /api
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">CORS</div>
+                        <div class="tag">API</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method trace">TRACE</div>
+
+                    <div class="description">
+                        Ajuda a diagnosticar requisições na rede.
+                    </div>
+
+                    <div class="endpoint">
+                        TRACE /api
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">Debug</div>
+                        <div class="tag">Rede</div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="method connect">CONNECT</div>
+
+                    <div class="description">
+                        Cria conexão através de proxy seguro.
+                    </div>
+
+                    <div class="endpoint">
+                        CONNECT servidor:443
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">HTTPS</div>
+                        <div class="tag">Proxy</div>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="method delete">Hora do QA</div>
+
+                    <div class="description">
+                        Um canal sobre qualidade de software.
+                    </div>
+
+                    <div class="endpoint">
+                        https://www.youtube.com/@horadoqa
+                    </div>
+
+                    <div class="tags">
+                        <div class="tag">QA</div>
+                        <div class="tag">API</div>
+                        <div class="tag">Automatização</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        
+
+
+
+        <div class="footer">
+
+            QA • REST • HTTP Fundamentals
+
+        </div>
+
+        
+
+
+
     </div>
 
-    <div class="footer">
-        QA • APIs REST • Desenvolvimento Web
-    </div>
 
-</div>
+    <script>
 
-<script>
 
-const slides = document.querySelector(".slides");
-const totalSlides = document.querySelectorAll(".slide").length;
+        const track =
+            document.getElementById("track");
 
-let currentSlide = 0;
 
-function nextSlide(){
+        const counter =
+            document.getElementById("counter");
 
-    currentSlide++;
 
-    if(currentSlide >= totalSlides){
-        currentSlide = 0;
-    }
+        let current = 0;
 
-    slides.style.transform =
-        `translateX(-${currentSlide * 100}%)`;
-}
+        const total = 9;
 
-setInterval(nextSlide, 4000);
 
-</script>
+        function slide() {
+
+
+            track.style.transform =
+                `translateY(-${current * 355}px)`;
+
+
+            counter.innerHTML =
+                `${String(current + 1).padStart(2, '0')} / 10`;
+
+
+            current++;
+
+
+            if (current >= total) {
+
+                current = 0;
+
+            }
+
+
+        }
+
+
+        setInterval(slide, 5000);
+
+
+
+    </script>
+
+
 
 </body>
+
 </html>
